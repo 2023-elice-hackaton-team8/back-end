@@ -1,10 +1,11 @@
 package com.elice.hackathon.domain.exam.controller;
 
 
-import com.elice.hackathon.domain.exam.dto.request.ProblemReqDto;
-import com.elice.hackathon.domain.exam.dto.request.LoginReqDto;
-import com.elice.hackathon.domain.exam.dto.response.BlackMouseResDto;
+import com.elice.hackathon.domain.exam.dto.request.OcrReqDto;
+import com.elice.hackathon.domain.exam.dto.request.SolveReqDto;
+import com.elice.hackathon.domain.exam.dto.response.GetProblemResDto;
 import com.elice.hackathon.domain.exam.dto.response.GetSubTitleResDto;
+import com.elice.hackathon.domain.exam.dto.response.OcrResDto;
 import com.elice.hackathon.domain.exam.dto.response.OpenFeignTestResDto;
 import com.elice.hackathon.domain.exam.feign.OCROpenFeign;
 import com.elice.hackathon.domain.exam.service.ExamService;
@@ -27,7 +28,6 @@ import static com.elice.hackathon.domain.exam.entitiy.Exam.examSubTypes;
 public class ExamController {
 
     private final ExamService examService;
-    private final OCROpenFeign ocrOpenFeign;
 
     @PostConstruct
     public void init() {
@@ -42,8 +42,13 @@ public class ExamController {
 
     // 깜쥐 이미지로 풀기
     @PostMapping("/black-mouse")
-    public BaseResponseDto<BlackMouseResDto> solveBlackMouse (@RequestPart MultipartFile file, @RequestPart ProblemReqDto problemReqDto) throws IOException {
-        return new BaseResponseDto<>(examService.blackMouseService(file, problemReqDto));
+    public BaseResponseDto<GetProblemResDto> solveBlackMouse(@AuthenticationPrincipal User user, @RequestPart MultipartFile file, @RequestPart SolveReqDto solveReqDto) throws IOException {
+        return new BaseResponseDto<>(examService.solveBlackMouseService(user, file, solveReqDto));
+    }
+
+    @GetMapping("")
+    public BaseResponseDto<GetProblemResDto> getProblem(@RequestParam String subjectMid, @RequestParam String type) {
+        return new BaseResponseDto<>(examService.selectRandomProblem(subjectMid, type));
     }
 
 
@@ -59,8 +64,4 @@ public class ExamController {
         return examService.test(user);
     }
 
-    @PostMapping("/test-feign")
-    public OpenFeignTestResDto testFeign(@RequestBody LoginReqDto loginReqDto){
-        return ocrOpenFeign.testFeign(loginReqDto);
-    }
 }

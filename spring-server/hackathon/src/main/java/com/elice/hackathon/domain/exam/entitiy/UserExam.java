@@ -21,6 +21,6 @@ public class UserExam extends BaseTimeEntity {
     @JoinColumn(name = "exam_id")
     private Exam exam;
 
-    @Column(name = "solve_img", nullable = true)
-    private String imgUrl;
+    @Column(name = "feedback")
+    private String feedback;
 }

@@ -5,13 +5,13 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class BlackMouseResDto {
+public class GetProblemResDto {
     Long examId;
 
     String explanation;
 
-    public static BlackMouseResDto of(Long examId, String explanation){
-        return BlackMouseResDto.builder()
+    public static GetProblemResDto of(Long examId, String explanation){
+        return GetProblemResDto.builder()
                 .examId(examId)
                 .explanation(explanation)
                 .build();
