@@ -20,7 +20,7 @@ public class UserController {
         return new BaseResponseDto<>(userService.signIn(signInReqDto));
     }
 
-    @GetMapping("")
+    @PostMapping("/login")
     public BaseResponseDto<LoginResDto> login(@RequestBody LoginReqDto loginReqDto){
         return new BaseResponseDto<>(userService.login(loginReqDto));
     }
