@@ -1,10 +1,10 @@
 package com.elice.hackathon.domain.exam.entitiy;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -50,5 +50,8 @@ public class Exam {
                 .build();
         return exam;
     }
+
+    public static Map<String, String[]> examSubTypes = new HashMap<>();
+
 
 }
