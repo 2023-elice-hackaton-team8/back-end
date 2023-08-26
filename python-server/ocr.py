@@ -7,7 +7,7 @@ class OCR:
         self.client = vision.ImageAnnotatorClient()
 
 
-    def detect_document(self, path):
+    def get_text(self, path):
         with open(path, "rb") as image_file:
             content = image_file.read()
         image = vision.Image(content=content)

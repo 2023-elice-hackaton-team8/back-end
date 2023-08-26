@@ -16,4 +16,4 @@ def hello():
 @app.route('/ocr')
 def ocr():
     # TODO: replace path with real files or image URI
-    return vision_client.detect_document("test2.jpg")
+    return vision_client.get_text("test2.jpg")
