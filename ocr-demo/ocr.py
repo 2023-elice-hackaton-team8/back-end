@@ -19,9 +19,11 @@ def detect_document(path):
                 for word in paragraph.words:
                     word_text = "".join([symbol.text for symbol in word.symbols])
                     result.append(word_text)
+                    result.append(" ")
     
-    print("".join(result))
+    result = "".join(result)
+    print(result)
+    return result    
 
     
-
-detect_document("image.jpg")
+detect_document("test3.jpg")
