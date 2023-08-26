@@ -20,7 +20,8 @@ public enum ErrorMessage {
     INVALID_FILE_UPLOAD(BAD_REQUEST, false, "파일 업로드에 실패하였습니다."),
     INVALID_FORMAT(BAD_REQUEST, false, "형식에 맞지 않습니다."),
     ADVERTISE_NOT_FOUND(NOT_FOUND, false, "해당 광고를 찾을 수 없습니다."),
-    ALREADY_SIGNUPED_EMAIL_USER(BAD_REQUEST, false, "이미 회원가입한 유저입니다."),
+    ALREADY_SIGNUPED_Id_USER(BAD_REQUEST, false, "이미 회원가입한 유저입니다."),
+    ALREADY_SIGNUPED_NICKNAME_USER(BAD_REQUEST, false, "이미 회원가입한 유저입니다."),
 
     WRITER_NOT_MATCH(BAD_REQUEST, false, "해당 포스트를 삭제할 권한이 없습니다."),
 
@@ -30,7 +31,7 @@ public enum ErrorMessage {
     NOT_FIND_JWT_TOKEN(UNAUTHORIZED, false, "JWT 토큰을 찾을 수 없습니다."),
     USER_JWT_INFORMATION_NO_CORRECT(FORBIDDEN, false, "JWT 인증 정보와 유저 정보가 다릅니다."),
 
-    ALREADY_EXISTED_ARTICLE(BAD_REQUEST, false, "이미 존재하는 기사입니다."),
+    ALREADY_EXISTED_ARTICLE(BAD_REQUEST, false, "이미 존재하는아."),
     ARTICLE_NOT_FOUND(NOT_FOUND, false, "해당 기업을 찾을 수 없습니다."),
 
     ALREADY_EXISTED_COMPANY(BAD_REQUEST, false, "이미 존재하는 기업입니다."),
