@@ -12,7 +12,30 @@ vision_client = OCR()
 def index():
     return "Index Page"
 
+@app.route("/feedback", methods=["POST"])
+def feedback():
+    # {
+    #     "problem_type": true,
+    #     "question": "question goes here",
+    #     "answer": "answer goes here",
+    #     "wrong_answer": "wrong answer goes here",
+    # }
+    problem_type = request.json["problem_type"]
+    question = request.json["question"]
+    answer = request.json["answer"]
+    wrong_answer = request.json["wrong_answer"]
 
+    feedback = f"""problem feedback for:
+    problem_type: {problem_type}
+    question: {question}
+    answer: {answer}
+    wrong_answer: {wrong_answer}
+    """
+
+    return feedback
+
+# TODO: Consider adding error handlers
+# https://flask.palletsprojects.com/en/2.3.x/errorhandling/#returning-api-errors-as-json
 @app.route("/ocr", methods=["POST"])
 def ocr():
     # Example: https://ojy1-bucket.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20230826_230308602.jpg
