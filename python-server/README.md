@@ -2,7 +2,7 @@ Deployed at: https://python-server-mphf6a2egq-du.a.run.app
 
 # OCR Endpoint
 
-Pass image URI as form data.
+Pass image URI in request body.
 ```
 curl --location 'https://python-server-mphf6a2egq-du.a.run.app/ocr' \
 --header 'Content-Type: application/json' \
