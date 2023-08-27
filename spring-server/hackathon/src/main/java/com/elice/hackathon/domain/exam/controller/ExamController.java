@@ -1,13 +1,12 @@
 package com.elice.hackathon.domain.exam.controller;
 
 
-import com.elice.hackathon.domain.exam.dto.request.OcrReqDto;
-import com.elice.hackathon.domain.exam.dto.request.SolveReqDto;
+import com.elice.hackathon.domain.exam.dto.request.SolveBlackReqDto;
+import com.elice.hackathon.domain.exam.dto.request.SolveWhiteReqDto;
 import com.elice.hackathon.domain.exam.dto.response.GetProblemResDto;
 import com.elice.hackathon.domain.exam.dto.response.GetSubTitleResDto;
-import com.elice.hackathon.domain.exam.dto.response.OcrResDto;
-import com.elice.hackathon.domain.exam.dto.response.OpenFeignTestResDto;
-import com.elice.hackathon.domain.exam.feign.OCROpenFeign;
+import com.elice.hackathon.domain.exam.dto.response.PreviousExamResDto;
+import com.elice.hackathon.domain.exam.dto.response.SolveExamResDto;
 import com.elice.hackathon.domain.exam.service.ExamService;
 import com.elice.hackathon.global.common.dto.BaseResponseDto;
 import jakarta.annotation.PostConstruct;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.List;
 
 import static com.elice.hackathon.domain.exam.entitiy.Exam.examSubTypes;
 
@@ -37,13 +36,23 @@ public class ExamController {
         examSubTypes.put( "문화와 일상생활", new String[]{"문화의 이해", "현대 사회의 문화 양상", "문화 변동의 양상과 대응"});
         examSubTypes.put( "사회 계층과 불평등", new String[]{"사회 불평등 현상의 이해", "사회 이동과 사회 계층 구조", "다양한 사회 불평등 현상", "사회 복지와 보기 제도"});
         examSubTypes.put( "현대 사회 변동", new String[]{"사회 변동과 사회 운동", "현대 사회의 변화와 전 지구적 수준의 문제"});
-        System.out.println("asdfasdf  " + Arrays.toString(examSubTypes.get("사회문화")));
     }
 
     // 깜쥐 이미지로 풀기
     @PostMapping("/black-mouse")
-    public BaseResponseDto<GetProblemResDto> solveBlackMouse(@AuthenticationPrincipal User user, @RequestPart MultipartFile file, @RequestPart SolveReqDto solveReqDto) throws IOException {
-        return new BaseResponseDto<>(examService.solveBlackMouseService(user, file, solveReqDto));
+    public BaseResponseDto<SolveExamResDto> solveBlackMouse(@AuthenticationPrincipal User user, @RequestPart MultipartFile file, @RequestParam String examId) throws IOException {
+        return new BaseResponseDto<>(examService.solveBlackMouseService(user, file, examId));
+    }
+
+    // 백쥐 이미지로 풀기
+    @PostMapping("/white-mouse")
+    public BaseResponseDto<SolveExamResDto> solveBlackMouse(@AuthenticationPrincipal User user, @RequestBody SolveWhiteReqDto solveWhiteReqDto) {
+        return new BaseResponseDto<>(examService.solveWhiteMouseService(user, solveWhiteReqDto));
+    }
+
+    @GetMapping("/previous")
+    public BaseResponseDto<List<PreviousExamResDto>> previousExams(@AuthenticationPrincipal User user){
+        return new BaseResponseDto<>(examService.previousExams(user));
     }
 
     @GetMapping("")
@@ -59,9 +68,9 @@ public class ExamController {
     }
 
 
-    @GetMapping("/test")
-    public String test(@AuthenticationPrincipal User user){
-        return examService.test(user);
-    }
+//    @GetMapping("/test")
+//    public String test(@AuthenticationPrincipal User user){
+//        return examService.test(user);
+//    }
 
 }
