@@ -1,4 +1,15 @@
 Flask==2.1.0
 gunicorn==20.1.0
+# OCR
 google-cloud-vision==3.4.4
+# For feedback.py
+torch
 transformers
+pypdf2
+langchain
+python-dotenv
+faiss-cpu
+openai
+huggingface-hub
+pypdfium2
+tiktoken

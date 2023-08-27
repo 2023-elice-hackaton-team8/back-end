@@ -2,10 +2,12 @@ from flask import Flask
 from flask import request
 import urllib.parse
 from ocr import OCR
+from feedback import Feedback
 import os
 
 app = Flask(__name__)
 vision_client = OCR()
+feedback_client = Feedback()
 
 
 @app.route("/")
@@ -23,14 +25,14 @@ def feedback():
     problem_type = request.json["problem_type"]
     question = request.json["question"]
     answer = request.json["answer"]
-    wrong_answer = request.json["wrong_answer"]
+    wrong_answer = request.json["wrong_answer"].replace("WRONGANSWER=", "")
 
-    feedback = f"""problem feedback for:
-    problem_type: {problem_type}
-    question: {question}
-    answer: {answer}
-    wrong_answer: {wrong_answer}
-    """
+    feedback = feedback_client.return_feedback(
+        prob_type=problem_type,
+        QUESTION=question,
+        ANSWER=answer,
+        WRONGANSWER=wrong_answer
+    )
 
     return feedback
 
