@@ -22,10 +22,12 @@ def feedback():
     #     "answer": "answer goes here",
     #     "wrong_answer": "wrong answer goes here",
     # }
-    problem_type = request.json["problem_type"]
-    question = request.json["question"]
-    answer = request.json["answer"]
-    wrong_answer = request.json["wrong_answer"].replace("WRONGANSWER=", "")
+    problem_type = request.json.get("problem_type", "")
+    question = request.json.get("question", "")
+    answer = request.json.get("answer", "")
+    wrong_answer = request.json.get("wrong_answer", "")
+    
+    wrong_answer.replace("WRONGANSWER=", "")
 
     feedback = feedback_client.return_feedback(
         prob_type=problem_type,
